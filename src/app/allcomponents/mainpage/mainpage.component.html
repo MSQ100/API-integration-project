@@ -1,0 +1,1151 @@
+<!-- Hero section -->
+<ng-container *ngIf="!hide; else xyz">
+    <section class="heroSection" style="background-image: url('../../../assets/CASHFORCARS.jpg'); background-repeat:
+    no-repeat;">
+        <div class="container-mid">
+            <div class="row justify-content-between">
+                <div class="col-lg-5">
+                    <div class="searchForm p-4 shadow-box">
+                        <h1>We Value Your Car.</h1>
+                        <p>Instant estimation. Personalised offers. Competitive prices </p>
+                        <ul class="nav nav-pills justify-content-center">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="pill" href="#licence-plate">License plate no</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="pill" href="#vin">VIN</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-4">
+                            <div class="tab-pane active" id="licence-plate">
+
+                                <form class="form-inner" [formGroup]="registration" (ngSubmit)="createStart()">
+                                    <div class="form-group mb-5">
+                                        <div class="form-field">
+                                            <input type="text" class="form-control" id="licence-plate-number"
+                                                autocomplete="off" maxlength="50" name="licence-plate-number" required>
+                                            <label for="licence-plate-number">License plate number</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-5">
+                                        <div class="form-field">
+                                            <select class="custom-select form-control" id="state" autocomplete="off"
+                                                formControlName="state" required>
+                                                <option value=""> </option>
+                                                <option *ngFor="let state of states" [value]="state.state_code">
+                                                    {{state.state_name }} </option>
+                                            </select>
+                                            <label for="state">Select state</label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a routerLink="/formpage" class="themeBtn w-100 text-center">Get Started</a>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- API calling-->
+                            <div class="tab-pane fade" id="vin">
+                                <form class="form-inner" [formGroup]="registration1" (ngSubmit)="vinStart()">
+                                    <div class="form-group mb-5">
+                                        <div class="form-field">
+                                            <input type="text" class="form-control" formControlName="vin">
+                                            <label for="vin">VIN</label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="themeBtn w-100 text-center" style="cursor:pointer">
+                                            Get Started</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Ends Hero section -->
+    
+    <app-howitworks id="howitworks"> </app-howitworks>
+    <app-faq id="faq"> </app-faq>
+</ng-container>
+<!-- Form page start from here -->
+<ng-template #xyz>
+    <section class="py-md-4 py-2 tradeCar-section">
+        <div class="container-mid">
+            <div class="row justify-content-between">
+                <div class="col-xl-5 col-lg-6 col-md-6">
+                    <div class="">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="pills-first">
+                                <div class="tradeCar pt-md-3">
+                                    <div class="w-100 formContainer">
+                                        <form class="form-inner" [formGroup]="registration2" (ngSubmit)="formStart()">
+                                            <div class="mb-4">
+                                                <h6 class=" text-dark mb-2 text-uppercase
+font-weight-bold">
+                                                    Description
+                                                </h6>
+                                            </div>
+                                            <div class="pl-md-4 py-2 border_left">
+                                                <div class="form-group mb-5">
+                                                    <div class="form-field">
+                                                        <input type="text" class="form-control" id="vin"
+                                                            autocomplete="off" maxlength="50" name="vin" required>
+                                                        <label for="vin">VIN</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-5">
+
+                                                    <div class="form-field">
+                                                        <select class="custom-select form-control" id="color"
+                                                            autocomplete="off" FormControlName="color" required>
+                                                            <option value=""> </option>
+                                                            <option *ngFor="let color of GetByVINexteriorcolors"
+                                                                [value]="color.color_slug">
+                                                                {{color.color}}
+                                                            </option>
+                                                            <!-- <option value="AL">Black</option>
+                                                            <option value="VA">Cajun Red</option>
+                                                            <option value="WA">Pearl Tricoat</option>
+                                                             <option value="WV">Silver Ice Metallic</option>
+                                                             <option value="WI">Summit White</option> -->
+                                                        </select>
+                                                        <label for="state">Select color</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-5">
+                                                    <div class="form-field">
+                                                        <input type="text" class="form-control" id="meter-reading"
+                                                            autocomplete="off" maxlength="50" name="meter-reading"
+                                                            required>
+                                                        <label for="meter-reading">Meter Reading
+                                                            (Approx)</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-field">
+                                                        <select class="custom-select form-control" id="features"
+                                                            autocomplete="off" name="features" required>
+                                                            <option></option>
+                                                            <option value="AL">Blind Spot Monitor</option>
+                                                            <option value="VA">Convenience
+                                                                Package</option>
+                                                            <option value="WA">Front Seat Heaters</option>
+                                                            <option value="WV">Heated Steering
+                                                                Wheel</option>
+                                                            <option value="WI">Lane Departure
+                                                                Warning</option>
+                                                            <option value="WI">Parking Sensors</option>
+                                                            <option value="WI">Rear Spoiler</option>
+                                                            <option value="WI">ABS Brakes</option>
+                                                            <option value="WI">Air Conditioning</option>
+                                                            <option value="WI">Alloy Wheels</option>
+                                                            <option value="WI">AM/FM Stereo</option>
+                                                            <option value="WI">Android Auto</option>
+                                                            <option value="WI">Apple CarPlay</option>
+                                                            <option value="WI">Auxiliary Audio Input</option>
+                                                            <option value="WI">Bluetooth Technology</option>
+                                                            <option value="WI">Cruise Control</option>
+                                                            <option value="WI">Leatherette & Cloth</option>
+                                                        </select>
+                                                        <label for="features">Select features
+                                                            (Optional)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="__controls w-100">
+                                        <div class="d-flex justify-content-between">
+                                            <a href="/" style="cursor:pointer;" class="wizardNav decoration-underline text-uppercase
+text-secondary ">
+                                                <svg class="mr-2" width="36" height="36" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="18" cy="18" r="17.5" fill="#fff" stroke="#6C6C6C" />
+                                                    <path d="M17.646 17.646a.5.5 0 0 0 0 .708l3.182 3.181a.5.5
+0 1 0 .707-.707L18.707 18l2.828-2.828a.5.5 0 1 0-.707-.708l-3.182 3.182ZM18
+18.5h18v-1H18v1Z" fill="#6C6C6C" />
+                                                </svg>
+                                                Prev
+                                            </a>
+                                            <a data-toggle="pill" href="#pills-second" class="wizardNav decoration-underline text-uppercase
+text-secondary ">
+                                                Next
+                                                <svg width="36" height="36" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg" class="ml-2">
+                                                    <circle cx="18" cy="18" r="17.5" fill="#fff" stroke="#6C6C6C" />
+                                                    <path d="M18.354 17.646a.5.5 0 0 1 0 .708l-3.182
+3.181a.5.5 0 1 1-.708-.707L17.293 18l-2.829-2.828a.5.5 0 1 1 .708-.708l3.182 3.182ZM18
+18.5H0v-1h18v1Z" fill="#6C6C6C" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="pills-second">
+                                <div class="tradeCar pt-3">
+                                    <div class="w-100 formContainer">
+                                        <div class="form-inner ">
+                                            <div class="mb-4">
+                                                <h6 class=" text-dark mb-2 text-uppercase
+font-weight-bold">
+                                                    Conditions
+                                                </h6>
+                                            </div>
+                                            <div class="pl-md-4 py-2 border_left">
+                                                <div class="form-group mb-4">
+                                                    <p class="text-dark font-weight-bold">
+                                                        What is the condition of the car?
+                                                        <a href="#" class="colorPrimary mr-1" data-toggle="modal"
+                                                            data-target="#whatIsVin">
+                                                            <i><svg width="18" height="18" viewBox="0 0 24
+24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 3.81818C7.48131 3.81818 3.81818
+7.48131 3.81818 12C3.81818 16.5187 7.48131 20.1818 12 20.1818C16.5187 20.1818
+20.1818 16.5187 20.1818 12C20.1818 7.48131 16.5187 3.81818 12 3.81818ZM2 12C2
+6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12
+22C6.47715 22 2 17.5228 2 12Z" fill="currentColor"></path>
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 11.0909C12.502 11.0909
+12.909 11.4979 12.909 12V15.6364C12.909 16.1384 12.502 16.5455 11.9999
+
+<!--223-->
+16.5455C11.4978 16.5455 11.0908 16.1384 11.0908 15.6364V12C11.0908 11.4979 11.4978
+11.0909 11.9999 11.0909Z" fill="currentColor"></path>
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.0908 8.36364C11.0908 7.86156
+11.4978 7.45454 11.9999 7.45454H12.009C12.5111 7.45454 12.9181 7.86156 12.9181
+8.36364C12.9181 8.86571 12.5111 9.27273 12.009 9.27273H11.9999C11.4978 9.27273
+11.0908 8.86571 11.0908 8.36364Z" fill="currentColor"></path>
+                                                                </svg></i>
+                                                        </a>
+                                                    </p>
+                                                    <ul class="select_condition d-flex list-style-none p-0">
+                                                        <li class="_option">
+                                                            <label for="condition-2" class="_label">
+                                                                <input id="condition-2" data-input="calcRadioField"
+                                                                    type="radio" name="condition" value="2">
+                                                                <span class="_value">POOR</span>
+                                                            </label>
+                                                        </li>
+                                                        <li class="_option">
+                                                            <label for="condition-3" class="_label">
+                                                                <input id="condition-3" data-input="calcRadioField"
+                                                                    type="radio" name="condition" value="3">
+                                                                <span class="_value">AVERAGE</span>
+                                                            </label>
+                                                        </li>
+                                                        <li class="_option">
+                                                            <label for="condition-4" class="_label">
+                                                                <input id="condition-4" data-input="calcRadioField"
+                                                                    type="radio" name="condition" value="4">
+                                                                <span class="_value">GOOD</span>
+                                                            </label>
+                                                        </li>
+                                                        <li class="_option">
+                                                            <label for="condition-5" class="_label">
+                                                                <input id="condition-5" data-input="calcRadioField"
+                                                                    type="radio" name="condition" value="5">
+                                                                <span class="_value">BEST</span>
+                                                            </label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+
+
+                                                <div class="form-group mb-4">
+                                                    <p class="text-dark font-weight-bold">Has the vehicle
+                                                        ever been
+                                                        in
+                                                        an accident?</p>
+                                                    <ul class="select_condition d-flex list-style-none p-0">
+                                                        <li class="_option">
+                                                            <label for="accident-yes" class="_label">
+                                                                <input id="accident-yes" data-input="calcRadioField"
+                                                                    type="radio" name="accident" value="2">
+                                                                <span class="_value">YES</span>
+                                                            </label>
+                                                        </li>
+                                                        <li class="_option">
+                                                            <label for="accident-no" class="_label">
+                                                                <input id="accident-no" data-input="calcRadioField"
+                                                                    type="radio" name="accident" value="3">
+                                                                <span class="_value">NO</span>
+                                                            </label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="form-group mb-4">
+                                                    <p class="text-dark font-weight-bold">Has this vehicle
+                                                        been
+                                                        smoked
+                                                        in?</p>
+                                                    <ul class="select_condition d-flex list-style-none p-0">
+                                                        <li class="_option">
+                                                            <label for="smoked-yes" class="_label">
+                                                                <input id="smoked-yes" data-input="calcRadioField"
+                                                                    type="radio" name="smoked" value="2">
+                                                                <span class="_value">YES</span>
+                                                            </label>
+                                                        </li>
+                                                        <li class="_option">
+                                                            <label for="smoked-no" class="_label">
+                                                                <input id="smoked-no" data-input="calcRadioField"
+                                                                    type="radio" name="smoked" value="3">
+                                                                <span class="_value">NO</span>
+
+
+
+                                                            </label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="form-group mb-4">
+                                                    <p class="text-dark font-weight-bold">Do you have more
+                                                        than one
+                                                        keys?</p>
+                                                    <ul class="select_condition d-flex list-style-none p-0">
+                                                        <li class="_option">
+                                                            <label for="keys-yes" class="_label">
+                                                                <input id="keys-yes" data-input="calcRadioField"
+                                                                    type="radio" name="keys" value="2">
+                                                                <span class="_value">YES</span>
+                                                            </label>
+                                                        </li>
+                                                        <li class="_option">
+                                                            <label for="keys-no" class="_label">
+                                                                <input id="keys-no" data-input="calcRadioField"
+                                                                    type="radio" name="keys" value="3">
+                                                                <span class="_value">NO</span>
+                                                            </label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="__controls w-100">
+                                        <div class="d-flex justify-content-between">
+                                            <a data-toggle="pill" href="#pills-first" class="wizardNav decoration-underline text-uppercase
+text-secondary ">
+                                                <svg class="mr-2" width="36" height="36" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="18" cy="18" r="17.5" fill="#fff" stroke="#6C6C6C" />
+                                                    <path d="M17.646 17.646a.5.5 0 0 0 0 .708l3.182 3.181a.5.5
+0 1 0 .707-.707L18.707 18l2.828-2.828a.5.5 0 1 0-.707-.708l-3.182 3.182ZM18
+18.5h18v-1H18v1Z" fill="#6C6C6C" />
+                                                </svg>
+                                                Prev
+                                            </a>
+                                            <a data-toggle="pill" href="#pills-third" class="wizardNav decoration-underline text-uppercase
+text-secondary ">
+                                                Next
+                                                <svg width="36" height="36" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg" class="ml-2">
+                                                    <circle cx="18" cy="18" r="17.5" fill="#fff" stroke="#6C6C6C" />
+                                                    <path d="M18.354 17.646a.5.5 0 0 1 0 .708l-3.182
+3.181a.5.5 0 1 1-.708-.707L17.293 18l-2.829-2.828a.5.5 0 1 1 .708-.708l3.182 3.182ZM18
+18.5H0v-1h18v1Z" fill="#6C6C6C" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="pills-third">
+                                <div class="tradeCar pt-3">
+                                    <div class="w-100 formContainer">
+                                        <div class="form-inner ">
+                                            <div class="mb-4">
+                                                <h6 class=" text-dark mb-2 text-uppercase
+font-weight-bold">
+                                                    Liabilities
+                                                </h6>
+                                            </div>
+                                            <div class="pl-md-4 py-2 border_left">
+                                                <div class="form-group mb-4">
+                                                    <p class="text-dark font-weight-bold">
+                                                        Any active loan or lease on the car?
+                                                        <a href="#" class="colorPrimary mr-1" data-toggle="modal"
+                                                            data-target="#whatIsLease">
+                                                            <i><svg width="18" height="18" viewBox="0 0 24
+24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 3.81818C7.48131 3.81818 3.81818
+7.48131 3.81818 12C3.81818 16.5187 7.48131 20.1818 12 20.1818C16.5187 20.1818
+20.1818 16.5187 20.1818 12C20.1818 7.48131 16.5187 3.81818 12 3.81818ZM2 12C2
+6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12
+22C6.47715 22 2 17.5228 2 12Z" fill="currentColor"></path>
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9999 11.0909C12.502 11.0909
+12.909 11.4979 12.909 12V15.6364C12.909 16.1384 12.502 16.5455 11.9999
+16.5455C11.4978 16.5455 11.0908 16.1384 11.0908 15.6364V12C11.0908 11.4979 11.4978
+11.0909 11.9999 11.0909Z" fill="currentColor"></path>
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.0908 8.36364C11.0908 7.86156
+11.4978 7.45454 11.9999 7.45454H12.009C12.5111 7.45454 12.9181 7.86156 12.9181
+8.36364C12.9181 8.86571 12.5111 9.27273 12.009 9.27273H11.9999C11.4978 9.27273
+11.0908 8.86571 11.0908 8.36364Z" fill="currentColor"></path>
+                                                                </svg></i>
+                                                        </a>
+                                                    </p>
+                                                    <ul class="select_condition d-flex list-style-none p-0
+mb-4">
+                                                        <li class="_option">
+                                                            <label for="loan-2" class="_label">
+                                                                <input id="loan-2" data-input="calcRadioField"
+                                                                    type="radio" name="loan" value="2">
+                                                                <span class="_value">No</span>
+                                                            </label>
+                                                        </li>
+                                                        <li class="_option">
+                                                            <label for="loan-3" class="_label">
+                                                                <input id="loan-3" data-input="calcRadioField"
+                                                                    type="radio" name="loan" value="3">
+                                                                <span class="_value">Loan</span>
+                                                            </label>
+                                                        </li>
+                                                        <li class="_option">
+                                                            <label for="loan-4" class="_label">
+                                                                <input id="loan-4" data-input="calcRadioField"
+                                                                    type="radio" name="loan" value="4">
+                                                                <span class="_value">Lease</span>
+                                                            </label>
+                                                        </li>
+
+
+
+                                                    </ul>
+                                                    <div id="lease" class="row">
+                                                        <div class="col-sm-6 pr-md-4">
+                                                            <div class="form-group mb-5">
+                                                                <div class="form-field">
+                                                                    <input type="text" class="form-control"
+                                                                        id="lease-amount" autocomplete="off"
+                                                                        maxlength="50" name="lease-amount" required>
+                                                                    <label for="lease-amount">Lease
+                                                                        Amount</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 pl-md-4">
+                                                            <div class="form-group mb-5">
+                                                                <div class="form-field">
+                                                                    <input type="text" class="form-control"
+                                                                        id="buyback-value" autocomplete="off"
+                                                                        maxlength="50" name="buyback-value" required>
+                                                                    <label for="buyback-value">Buyback
+                                                                        Value</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="__controls w-100">
+                                        <div class="d-flex justify-content-between">
+                                            <a data-toggle="pill" href="#pills-second" class="wizardNav decoration-underline text-uppercase
+text-secondary ">
+                                                <svg class="mr-2" width="36" height="36" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="18" cy="18" r="17.5" fill="#fff" stroke="#6C6C6C" />
+
+
+
+                                                    <path d="M17.646 17.646a.5.5 0 0 0 0 .708l3.182 3.181a.5.5
+0 1 0 .707-.707L18.707 18l2.828-2.828a.5.5 0 1 0-.707-.708l-3.182 3.182ZM18
+18.5h18v-1H18v1Z" fill="#6C6C6C" />
+                                                </svg>
+                                                Prev
+                                            </a>
+                                            <a data-toggle="pill" href="#pills-fourth" class="wizardNav decoration-underline text-uppercase
+text-secondary ">
+                                                Next
+                                                <svg width="36" height="36" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg" class="ml-2">
+                                                    <circle cx="18" cy="18" r="17.5" fill="#fff" stroke="#6C6C6C" />
+                                                    <path d="M18.354 17.646a.5.5 0 0 1 0 .708l-3.182
+3.181a.5.5 0 1 1-.708-.707L17.293 18l-2.829-2.828a.5.5 0 1 1 .708-.708l3.182 3.182ZM18
+18.5H0v-1h18v1Z" fill="#6C6C6C" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="pills-fourth">
+                                <div class="tradeCar pt-3">
+                                    <div class="w-100 formContainer">
+                                        <form class="form-inner ">
+                                            <div class="mb-4">
+                                                <h6 class=" text-dark mb-2 text-uppercase
+font-weight-bold">Personal
+                                                    Information</h6>
+                                            </div>
+                                            <div class="pl-md-4 py-2 border_left">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group mb-5">
+                                                            <div class="form-field">
+
+
+                                                                <input type="text" class="form-control" id="zip"
+                                                                    autocomplete="off" maxlength="50" name="zip"
+                                                                    required>
+                                                                <label for="zip">ZIP Code</label>
+                                                            </div>
+                                                            <small>(Where your vehicle is registered)</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group mb-5">
+                                                            <div class="form-field">
+                                                                <input type="text" class="form-control" id="firstname"
+                                                                    autocomplete="off" maxlength="50" name="firstname"
+                                                                    required>
+                                                                <label for="firstname">First Name</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group mb-5">
+                                                            <div class="form-field">
+                                                                <input type="text" class="form-control" id="lastname"
+                                                                    autocomplete="off" maxlength="50" name="lastname"
+                                                                    required>
+                                                                <label for="lastname">Last Name</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group mb-5">
+                                                            <div class="form-field">
+                                                                <input type="text" class="form-control" id="phone"
+                                                                    autocomplete="off" maxlength="50" name="phone"
+                                                                    required>
+                                                                <label for="phone">Phone (XXX)
+                                                                    XXX-XXXX</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group mb-5">
+                                                            <div class="form-field">
+                                                                <input type="text" class="form-control" id="email"
+                                                                    autocomplete="off" maxlength="50" name="email"
+                                                                    required>
+                                                                <label for="email">Email</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="d-flex flex-wrap">
+                                                            <div class="preferred mb-3 pr-3 mr-1 text-md-right">
+                                                                <h6 class="mb-1">Preferred way to contact
+                                                                    you</h6>
+                                                                <p class="font-13">Tap to select your way</p>
+                                                            </div>
+                                                            <div class="form-group mb-3
+preferred-contact-container">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="preferred-contact">
+                                                                        <label for="contact-email">
+                                                                            <input type="checkbox" id="contact-email"
+                                                                                name="contact-email">
+                                                                            <span class="__icon mb-1 d-inline-block
+email">
+                                                                                <svg width="30" height="30" fill="none"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <circle cx="15" cy="15" r="14.5"
+                                                                                        fill="#fff" stroke="#8A8A8A" />
+                                                                                    <path class="_main"
+                                                                                        fill-rule="evenodd"
+                                                                                        clip-rule="evenodd" d="M23.755 12.25 15.005 7l-8.75
+5.25 8.75 5.25 8.75-5.25ZM6.502 22.984l7.62-5.072L6 13.178l.502 9.806Zm9.376-5.072
+7.62 5.072.502-9.806-8.122 4.734Zm-8.703 5.124 7.835-4.933 7.313 5.258-15.148-.325Z" fill="#8A8A8A" />
+                                                                                    <path d="M20.45 15.347c0
+.402-.05.8-.147 1.194-.093.389-.237.742-.431
+1.06-.195.313-.44.565-.737.755-.292.186-.639.28-1.04.28-.318 0-.6-.077-.845-.23a1.24 1.24
+0 0 1-.508-.59h-.101c-.178.216-.41.407-.699.572-.287.165-.636.247-1.047.247-.774
+0-1.371-.23-1.79-.692-.419-.465-.628-1.075-.628-1.828
+0-.584.124-1.098.374-1.542.25-.449.605-.8 1.066-1.054.462-.254 1.005-.38 1.632-.38.41 0
+.831.037 1.263.113.436.072.776.15 1.022.235l-.127 2.666a5.694 5.694 0 0
+0-.019.267v.171c0 .36.049.6.146.718.102.114.214.171.336.171.195 0
+.358-.097.49-.292.13-.195.23-.455.297-.78a5.28 5.28 0 0 0
+.102-1.074c0-.723-.148-1.339-.444-1.847a2.914 2.914 0 0
+0-1.206-1.168c-.508-.27-1.086-.406-1.733-.406-.681
+0-1.282.108-1.803.324-.52.216-.958.518-1.314.908-.351.389-.618.848-.8 1.377a5.409 5.409
+0 0 0-.266 1.733c0 .779.14 1.439.419 1.98.279.542.69.953 1.231 1.232.546.28 1.212.419 2
+.419.503 0 1.026-.055 1.567-.165a10.321 10.321 0 0 0 1.498-.426v1.225a7.262 7.262 0 0
+1-1.39.413 8.02 8.02 0 0 1-1.625.159c-1.075 0-1.993-.19-2.755-.572a4.043 4.043 0 0
+1-1.752-1.643c-.402-.72-.602-1.581-.602-2.584 0-.787.129-1.517.387-2.19a5.247 5.247 0 0
+1 1.123-1.771 5.104 5.104 0 0 1 1.758-1.187c.69-.284 1.46-.425 2.311-.425.927 0 1.75.188
+2.47.565.723.372 1.29.903 1.7 1.593.411.69.616 1.513.616 2.47Zm-6.5.794c0
+.474.097.816.291 1.028.2.207.466.311.8.311.436 0
+.743-.159.92-.476.178-.318.282-.732.312-1.244l.082-1.403a2.328 2.328 0 0 0-.33-.044
+3.899 3.899 0 0 0-.4-.02c-.41 0-.738.091-.984.273a1.512 1.512 0 0 0-.533.692 2.47 2.47 0 0
+0-.159.883Z" fill="#fff" />
+                                                                                </svg>
+                                                                            </span>
+                                                                            <div class="er preferred-contact-text">
+                                                                                Email
+                                                                            </div>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="preferred-contact">
+                                                                        <label for="contact-text">
+                                                                            <input type="checkbox" id="contact-text"
+                                                                                name="contact-text">
+                                                                            <span class="__icon mb-1 d-inline-block
+text">
+                                                                                <svg width="30" height="30" fill="none"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <circle cx="15" cy="15" r="14.5"
+                                                                                        fill="#fff" stroke="#8A8A8A" />
+                                                                                    <path class="_main"
+                                                                                        fill-rule="evenodd"
+                                                                                        clip-rule="evenodd" d="M9 7a2 2 0 0 0-2 2v7.333a2 2
+0 0 0 2 2h8.148L20 22v-3.667h1a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H9Z" fill="#8A8A8A" />
+                                                                                    <path class="_main" d="m17.148
+18.333.395-.307-.15-.193h-.245v.5ZM20 22l-.395.307.895
+1.15V22H20Zm0-3.667v-.5h-.5v.5h.5ZM7.5 9A1.5 1.5 0 0 1 9 7.5v-1A2.5 2.5 0 0 0 6.5
+9h1Zm0 7.333V9h-1v7.333h1Zm1.5 1.5a1.5 1.5 0 0 1-1.5-1.5h-1a2.5 2.5 0 0 0 2.5
+2.5v-1Zm8.148 0H9v1h8.148v-1Zm3.247 3.86-2.852-3.667-.79.614 2.852
+3.667.79-.614Zm-.895-3.36V22h1v-3.667h-1Zm1.5-.5h-1v1h1v-1Zm1.5-1.5a1.5 1.5 0 0
+1-1.5 1.5v1a2.5 2.5 0 0 0 2.5-2.5h-1ZM22.5 9v7.333h1V9h-1ZM21 7.5A1.5 1.5 0 0 1 22.5
+9h1A2.5 2.5 0 0 0 21 6.5v1Zm-12 0h12v-1H9v1Z" fill="#8A8A8A" />
+                                                                                    <path d="M11.994 14.725c-.215
+0-.395-.033-.54-.1a.82.82 0 0 1-.34-.295c-.081-.131-.14-.29-.175-.475a3.482 3.482 0 0
+1-.053-.639v-.46h.744v.52c0 .276.024.476.07.597.048.12.14.181.279.181.094 0
+.164-.021.21-.064a.355.355 0 0 0 .098-.211c.017-.098.026-.225.026-.38
+0-.194-.041-.371-.123-.531a2.097 2.097 0 0 0-.366-.498l-.381-.393a2.864 2.864 0 0
+1-.287-.348 1.673 1.673 0 0 1-.202-.41 1.665 1.665 0 0
+1-.074-.51c0-.272.034-.501.1-.689a.784.784 0 0 1
+.337-.425c.158-.097.375-.146.65-.146.207 0
+.377.032.51.097.135.062.24.155.313.278.077.121.13.27.162.445.03.174.046.373.046.598v.
+32h-.723v-.37c0-.156-.009-.286-.027-.39a.445.445 0 0
+0-.09-.231c-.045-.053-.11-.08-.197-.08a.33.33 0 0 0-.199.056.302.302 0 0 0-.111.167 1.07
+1.07 0 0 0-.032.29c0
+.108.013.2.04.279.028.078.07.153.127.226.056.072.127.153.21.243l.425.46c.204.218.362.4
+46.475.682.113.236.17.5.17.791 0 .309-.033.569-.1.78a.874.874 0 0
+1-.334.474c-.156.107-.369.161-.638.161Zm1.626-.058V9.51h.975l.733
+3.768.688-3.768h.982v5.157h-.7v-1.922l.029-1.764-.695 3.662h-.624l-.723-3.662.029
+1.764v1.922h-.694Zm5.094.058c-.214 0-.394-.033-.539-.1a.82.82 0 0
+1-.34-.295c-.082-.131-.14-.29-.175-.475a3.482 3.482 0 0 1-.053-.639v-.46h.744v.52c0
+.276.024.476.07.597.047.12.14.181.279.181.094 0 .164-.021.21-.064a.355.355 0 0 0
+.097-.211c.018-.098.027-.225.027-.38 0-.194-.041-.371-.123-.531a2.097 2.097 0 0
+0-.367-.498l-.38-.393a2.864 2.864 0 0 1-.288-.348 1.673 1.673 0 0 1-.202-.41 1.665 1.665 0
+0 1-.073-.51c0-.272.033-.501.1-.689a.784.784 0 0 1
+.337-.425c.158-.097.375-.146.65-.146.207 0
+.377.032.51.097.134.062.239.155.313.278.076.121.13.27.161.445.032.174.047.373.047.59
+8v.32h-.723v-.37c0-.156-.01-.286-.027-.39a.445.445 0 0
+0-.09-.231c-.046-.053-.11-.08-.197-.08a.33.33 0 0 0-.2.056.302.302 0 0 0-.11.167 1.07 1.07
+0 0 0-.033.29c0
+.108.014.2.041.279.028.078.07.153.126.226.057.072.127.153.211.243l.425.46c.203.218.36
+1.446.475.682.113.236.17.5.17.791 0 .309-.034.569-.1.78a.874.874 0 0
+1-.334.474c-.156.107-.37.161-.639.161Z" fill="#fff" />
+                                                                                </svg>
+                                                                            </span>
+                                                                            <div class="er preferred-contact-text">
+
+
+                                                                                Text
+                                                                            </div>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="preferred-contact">
+                                                                        <label for="contact-call">
+                                                                            <input type="checkbox" id="contact-call"
+                                                                                name="contact-call">
+                                                                            <span
+                                                                                class="__icon mb-1 d-inline-block call">
+                                                                                <svg width="30" height="30" fill="none"
+                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                    <circle cx="15" cy="15" r="14.5"
+                                                                                        fill="#fff" stroke="#8A8A8A" />
+                                                                                    <rect class="_main" x="9" y="6"
+                                                                                        width="12" height="18" rx="2"
+                                                                                        fill="#8A8A8A" />
+                                                                                    <rect x="10" y="10" width="10"
+                                                                                        height="12" rx="1"
+                                                                                        fill="#fff" />
+                                                                                    <circle cx="15" cy="8" r="1"
+                                                                                        fill="#fff" />
+                                                                                </svg>
+                                                                            </span>
+                                                                            <div class="er preferred-contact-text">
+                                                                                Call
+                                                                            </div>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="d-flex align-items-start
+agrement-Container">
+                                                            <label for="agrement_form" class="mb-0 agrementForm-text">
+                                                                <p class="font-13 mb-0">I confirm that the
+                                                                    above-mentioned contact information belongs
+                                                                    to
+
+
+
+                                                                    me,
+                                                                    and I agree to receive calls/text
+                                                                    messages/emails
+                                                                    from the selected dealers about my
+                                                                    vehicle.</p>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="__controls w-100">
+                                        <div class="d-flex justify-content-between">
+                                            <a data-toggle="pill" href="#pills-third" class="wizardNav decoration-underline text-uppercase
+text-secondary ">
+                                                <svg class="mr-2" width="36" height="36" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="18" cy="18" r="17.5" fill="#fff" stroke="#6C6C6C" />
+                                                    <path d="M17.646 17.646a.5.5 0 0 0 0 .708l3.182 3.181a.5.5
+0 1 0 .707-.707L18.707 18l2.828-2.828a.5.5 0 1 0-.707-.708l-3.182 3.182ZM18
+18.5h18v-1H18v1Z" fill="#6C6C6C" />
+                                                </svg>
+                                                Prev
+                                            </a>
+                                            <a data-toggle="pill" href="#pills-fifth" class="wizardNav decoration-underline text-uppercase
+text-secondary ">
+                                                Next
+                                                <svg width="36" height="36" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg" class="ml-2">
+                                                    <circle cx="18" cy="18" r="17.5" fill="#fff" stroke="#6C6C6C" />
+                                                    <path d="M18.354 17.646a.5.5 0 0 1 0 .708l-3.182
+3.181a.5.5 0 1 1-.708-.707L17.293 18l-2.829-2.828a.5.5 0 1 1 .708-.708l3.182 3.182ZM18
+18.5H0v-1h18v1Z" fill="#6C6C6C" />
+
+
+
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="pills-fifth">
+                                <div class="tradeCar pt-3">
+                                    <div class="formContainer">
+                                        <form class="form-inner ">
+                                            <div class="mb-4">
+                                                <h6 class=" text-dark mb-2 text-uppercase
+font-weight-bold">Select
+                                                    Dealers</h6>
+                                            </div>
+                                            <div class="pl-md-4 pb-2 border_left">
+                                                <div class="dealer_filters pb-3 pt-2">
+                                                    <div class="toggle_filter mr-2">
+                                                        <h6 class="mr-2">
+                                                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M22.7705 20.1238V21.2075C22.7705
+21.4558 22.9963 21.6364 23.2898 21.6364H25.6378C25.9313 21.6364 26.1571 21.4558
+26.1571 21.2075V19.6045C25.7055 19.9432 25.0282 20.1238 23.8091 20.1238H22.7705Z" fill="#70ad4d" />
+                                                                <path d="M26.8576 8.49639H25.3449C24.9836
+8.49639 24.6901 8.78989 24.6901 9.15113V9.33175L23.9677 9.60267C23.471 8.27062
+22.1389 6.1032 21.3713 5.71939C20.9197 5.49362 18.0976 5.35815 15.6818
+5.35815C14.1014 5.35815 12.3404 5.42589 11.189 5.51619H11.2341L11.7308
+6.14836C14.6659 5.94516 20.7843 6.01289 21.2133 6.37413C21.8003 6.84825 23.5161
+9.96391 23.3355 10.438C23.1775 10.9122 15.6818 10.7315 15.6818 10.7315C15.6818
+10.7315 12.4759 10.7541 11.2341 10.7541V11.0025L11.7082 12.6054L12.1372
+13.6892L12.3178 13.9375H19.1813C19.9941 13.9375 20.1295 14.1859 20.1295
+15.0212C20.1295 16.0823 19.7909 17.2789 18.8652 17.2789H13.8982L13.9885
+17.7756L14.2369 19.5818H23.8774C25.3675 19.5818 25.6384 19.198 25.9093
+18.5433C26.3157 17.595 26.248 14.818 26.0674 13.644C25.9996 13.057 25.4578 12.2442
+24.9159 11.4992C24.7579 11.2734 24.6224 11.025 24.4644 10.8218L25.1417
+10.3929C25.1417 10.3929 25.2997 10.3929 25.3449 10.3929H26.8576C27.2414 10.3929
+27.5349 10.0994 27.5349 9.71556V9.12855C27.5349 8.76732 27.2414 8.47381 26.8576
+8.47381V8.49639ZM25.2094 13.802V13.9375C25.0965 15.1341 23.9225 15.9695 22.2292
+15.9695H21.9583C21.8003 15.9695 21.6422 15.9243 21.5293 15.8114C20.7617 15.0664
+22.3873 12.8538 23.9451 12.6958C24.5998 12.628 25.1868 13.1247 25.2094
+13.802V13.802Z" fill="#70ad4d" />
+                                                                <path d="M13.7401 18.8821C13.6046 18.0468
+13.4691 17.234 13.3111 16.4212C13.1756 15.6762 12.7692 15.1343 12.2274
+14.7053C9.58586 12.7186 7.9603 12.4928 9.11174 12.9895C9.60844 13.5313 8.43442
+15.9697 7.68937 17.392C7.37329 18.0016 7.10236 18.408 7.10236 18.408C7.10236
+18.408 6.83144 18.0016 6.51536 17.392C5.74773 15.9923 4.59629 13.5313 5.09299
+12.9895C4.95753 13.0572 4.82206 13.1024 4.6866 13.1701C3.73836 13.5991 2.81269
+14.0732 1.97733 14.7053C1.43548 15.1117 1.02909 15.6762 0.893626 16.4212C0.735585
+17.234 0.600122 18.0468 0.464659 18.8821C0.442081 19.0628 0.464659 19.2659
+0.600122 19.4014C0.713008 19.5369 0.893626 19.6272 1.09682
+19.6272H13.0853C13.2659 19.6272 13.4466 19.5369 13.582 19.4014C13.6949 19.2659
+13.7626 19.0628 13.7175 18.8821H13.7401ZM11.4598
+17.663H9.69874V17.3243H11.4598V17.663Z" fill="#2B2B2B" />
+                                                                <path d="M9.67627
+17.3243H11.4373V17.663H9.67627V17.3243Z" fill="white" />
+                                                                <path d="M7.14744 16.3762L7.10228
+16.331H7.05713V16.2859H7.10228L7.14744 16.2407C7.14744 16.2407 7.14744 16.331
+7.17002 16.3762H7.14744Z" fill="#4b5a68" />
+                                                                <path d="M7.68927 17.3919C7.35061 18.0015
+7.10226 18.4079 7.07968 18.4079C7.05711 18.4079 6.80876 18.0015 6.49268
+17.3919C6.49268 17.2113 6.51525 17.0307 6.53783 16.8501C6.60556 16.2631 6.62814
+15.6761 6.67329 15.1116V14.9084H7.48607V15.1116C7.53123 15.6761 7.55381 16.2631
+7.62154 16.8501L7.68927 17.3919Z" fill="#2B2B2B" />
+                                                                <path d="M7.62148 14.2989C7.55375 14.7052
+7.5086 14.7278 7.05705 14.7278C6.60551 14.7278 6.56035 14.6827 6.49262
+14.2989C6.44747 13.9828 6.49262 13.9376 6.89901 13.915H7.21509C7.62148 13.915
+7.66664 13.9828 7.62148 14.2989V14.2989Z" fill="#2B2B2B" />
+                                                                <path d="M9.26963 10.6412L9.22448
+10.709C9.22448 10.709 9.11159 10.867 9.02128 10.867C9.02128 10.867 8.97613 10.867
+8.95355 10.867C8.9084 11.0251 8.84066 11.1831 8.79551 11.3411C8.79551 11.3863
+8.77293 11.4089 8.75036 11.454C8.68262 11.6121 8.59231 11.7701 8.52458
+11.9056C8.16335 12.5152 7.57634 12.8312 6.98933 12.8312C6.40232 12.8312 5.81532
+12.5152 5.45408 11.9056C5.36377 11.7701 5.29604 11.6121 5.22831 11.454C5.22831
+11.4089 5.20573 11.3863 5.18315 11.3411C5.138 11.1831 5.07027 11.0251 5.02511
+10.867C5.02511 10.867 4.97996 10.867 4.95738 10.867C4.86707 10.867 4.79934 10.7993
+
+4.75419 10.709L4.70903 10.6412C4.52841 10.28 4.41553 9.87362 4.41553
+9.44465C4.41553 9.37692 4.4381 9.28661 4.48326 9.26403C4.57357 9.1963 4.57357
+9.10599 4.55099 9.01568C4.55099 8.97053 4.55099 8.9028 4.52841 8.85764C4.21233
+6.59992 6.58294 4.90663 8.27623 6.19353C8.38912 6.28384 8.50201 6.48703 8.61489
+6.59992C8.68262 6.66765 8.72778 6.6225 8.79551 6.66765C8.79551 6.66765 8.86324
+6.7128 8.9084 6.73538C9.22448 6.87085 9.35994 7.18693 9.42767 7.52559C9.51798
+7.95455 9.47283 8.38352 9.42767 8.83506C9.42767 8.83506 9.42767 8.97053 9.40509
+9.01568C9.38252 9.10599 9.35994 9.1963 9.47283 9.26403C9.51798 9.28661 9.54056
+9.37692 9.54056 9.44465C9.54056 9.87362 9.45025 10.2574 9.24705 10.6412H9.26963Z" fill="#2B2B2B" />
+                                                            </svg>
+                                                            <span>Show BMW Dealers</span>
+                                                        </h6>
+                                                        <div class="custom-control custom-switch c-pointer">
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="customSwitch7">
+                                                            <label class="custom-control-label"
+                                                                for="customSwitch7"></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="toggle_filter">
+                                                        <h6 class="mr-2">
+                                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M7.52197 14.8923V16.6607C4.38279
+16.0673 1.93462 13.6222 1.33858 10.48H3.10986C3.6483 12.64 5.36191 14.3536 7.52177
+14.8922L7.52197 14.8923Z" fill="#70ad4d" />
+                                                                <path d="M10.477 3.11001V1.33887C13.6191
+1.93209 16.0671 4.38009 16.6604 7.52226H14.8891C14.3507 5.35931 12.64 3.64869
+10.4772 3.11001H10.477Z" fill="#70ad4d" />
+                                                                <path d="M14.8893 10.4801H16.6604C16.0643
+13.6222 13.6163 16.0674 10.477 16.6607V14.8895C12.637 14.3509 14.3506 12.6402
+14.8893 10.4803V10.4801Z" fill="#70ad4d" />
+                                                                <path d="M3.10986 7.52226H1.33858C1.93191
+4.38016 4.37994 1.93219 7.52197 1.33887V3.10723C5.35902 3.64567 3.6484 5.35928
+3.10973 7.52219L3.10986 7.52226Z" fill="#70ad4d" />
+                                                                <path d="M13.8815 8.99979C13.8815 8.50151
+14.2847 8.0983 14.783 8.0983H17.0985C17.5968 8.0983 18 8.50151 18 8.99979C18
+9.49807 17.5968 9.90406 17.0985 9.90406H14.783C14.2847 9.90406 13.8815 9.49807
+13.8815 8.99979Z" fill="#70ad4d" />
+                                                                <path d="M0.90136 8.0983H3.21692C3.7152 8.0983
+4.11841 8.50151 4.11841 8.99979C4.11841 9.49807 3.7152 9.90406 3.21692
+9.90406H0.90136C0.403077 9.90406 -0.000130174 9.49794 -0.000130174
+8.99979C-0.000130174 8.50151 0.403077 8.0983 0.90136 8.0983V8.0983Z" fill="#70ad4d" />
+                                                                <path d="M8.99963 4.12119C8.50135 4.12119
+8.09814 3.71506 8.09814 3.21691V0.904275C8.09814 0.403209 8.50135 0 8.99963
+0C9.49791 0 9.90112 0.403209 9.90112 0.904275V3.21691C9.90112 3.71519 9.49791
+4.12119 8.99963 4.12119Z" fill="#70ad4d" />
+                                                                <path d="M8.99963 13.8815C9.49791 13.8815
+9.90112 14.2847 9.90112 14.783V17.0985C9.90112 17.5968 9.49791 18 8.99963
+18C8.50135 18 8.09814 17.5968 8.09814 17.0985V14.783C8.09814 14.2847 8.50135
+13.8815 8.99963 13.8815V13.8815Z" fill="#70ad4d" />
+                                                                <path d="M6.31455 9.0005C6.31455 10.483 7.51633
+11.6848 8.99883 11.6848C10.4813 11.6848 11.6831 10.483 11.6831 9.0005C11.6831
+7.51801 10.4813 6.31622 8.99883 6.31622C7.51633 6.31622 6.31455 7.51801 6.31455
+9.0005Z" fill="#70ad4d" />
+                                                            </svg>
+                                                            <span>Current Location</span>
+                                                        </h6>
+                                                        <div class="custom-control custom-switch c-pointer">
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="customSwitch">
+                                                            <label class="custom-control-label"
+                                                                for="customSwitch"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="dealers_list pl-1 custom-slim-scroll pt-4">
+                                                    <div class="check-filter mb-3">
+                                                        <label class="control-label c-pointer" for="drivetrain_4wd">
+                                                            <input type="checkbox" id="drivetrain_4wd">
+
+
+
+                                                            <label for="drivetrain_4wd"></label>
+                                                            <div class="dealer">
+                                                                <div class="_main">
+                                                                    <div class="_title w-100">
+                                                                        <h6>BMW of San Francisco</h6>
+                                                                    </div>
+                                                                    <div class="_Subtitle w-100">
+                                                                        <p class="mb-1">1675 Howard St, San
+                                                                            Francisco,
+                                                                            CA 94103 <span class="text-dark">
+                                                                                (12 miles)
+                                                                            </span></p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="_img">
+                                                                    <img src="https://storage.googleapis.com/aresstorage/upload/dealer/showroom/3102/6372816497
+64905999.jpg" class="img-fluid" />
+                                                                </div>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                    <div class="check-filter mb-3">
+                                                        <label class="control-label c-pointer" for="drivetrain_4wd1">
+                                                            <input type="checkbox" id="drivetrain_4wd1">
+                                                            <label for="drivetrain_4wd1"></label>
+                                                            <div class="dealer">
+                                                                <div class="_main">
+                                                                    <div class="_title w-100">
+                                                                        <h6>BMW of San Francisco</h6>
+                                                                    </div>
+                                                                    <div class="_Subtitle w-100">
+                                                                        <p class="mb-1">1675 Howard St, San
+                                                                            Francisco,
+                                                                            CA 94103 <span class="text-dark">
+                                                                                (12 miles)
+                                                                            </span></p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="_img">
+                                                                    <img src="https://storage.googleapis.com/aresstorage/upload/dealer/showroom/3102/6372816497
+64905999.jpg" class="img-fluid" />
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                    <div class="check-filter mb-3">
+                                                        <label class="control-label c-pointer" for="drivetrain_4wd2">
+                                                            <input type="checkbox" id="drivetrain_4wd2">
+                                                            <label for="drivetrain_4wd2"></label>
+                                                            <div class="dealer">
+                                                                <div class="_main">
+                                                                    <div class="_title w-100">
+                                                                        <h6>BMW of San Francisco</h6>
+                                                                    </div>
+                                                                    <div class="_Subtitle w-100">
+                                                                        <p class="mb-1">1675 Howard St, San
+                                                                            Francisco,
+                                                                            CA 94103 <span class="text-dark">
+                                                                                (12 miles)
+                                                                            </span></p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="_img">
+                                                                    <img src="https://storage.googleapis.com/aresstorage/upload/dealer/showroom/3102/6372816497
+64905999.jpg" class="img-fluid" />
+                                                                </div>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                    <div class="check-filter mb-3">
+                                                        <label class="control-label c-pointer" for="drivetrain_4wd3">
+                                                            <input type="checkbox" id="drivetrain_4wd3">
+                                                            <label for="drivetrain_4wd3"></label>
+                                                            <div class="dealer">
+                                                                <div class="_main">
+                                                                    <div class="_title w-100">
+                                                                        <h6>BMW of San Francisco</h6>
+                                                                    </div>
+                                                                    <div class="_Subtitle w-100">
+                                                                        <p class="mb-1">1675 Howard St, San
+                                                                            Francisco,
+                                                                            CA 94103 <span class="text-dark">
+                                                                                (12 miles)
+                                                                            </span></p>
+
+
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="_img">
+                                                                    <img src="https://storage.googleapis.com/aresstorage/upload/dealer/showroom/3102/6372816497
+64905999.jpg" class="img-fluid" />
+                                                                </div>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                    <div class="check-filter mb-3">
+                                                        <label class="control-label c-pointer" for="drivetrain_4wd4">
+                                                            <input type="checkbox" id="drivetrain_4wd4">
+                                                            <label for="drivetrain_4wd4"></label>
+                                                            <div class="dealer">
+                                                                <div class="_main">
+                                                                    <div class="_title w-100">
+                                                                        <h6>BMW of San Francisco</h6>
+                                                                    </div>
+                                                                    <div class="_Subtitle w-100">
+                                                                        <p class="mb-1">1675 Howard St, San
+                                                                            Francisco,
+                                                                            CA 94103 <span class="text-dark">
+                                                                                (12 miles)
+                                                                            </span></p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="_img">
+                                                                    <img src="https://storage.googleapis.com/aresstorage/upload/dealer/showroom/3102/6372816497
+64905999.jpg" class="img-fluid" />
+                                                                </div>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                    <div class="check-filter mb-3">
+                                                        <label class="control-label c-pointer" for="drivetrain_4wd5">
+                                                            <input type="checkbox" id="drivetrain_4wd5">
+                                                            <label for="drivetrain_4wd5"></label>
+                                                            <div class="dealer">
+                                                                <div class="_main">
+                                                                    <div class="_title w-100">
+
+
+
+                                                                        <h6>BMW of San Francisco</h6>
+                                                                    </div>
+                                                                    <div class="_Subtitle w-100">
+                                                                        <p class="mb-1">1675 Howard St, San
+                                                                            Francisco,
+                                                                            CA 94103 <span class="text-dark">
+                                                                                (12 miles)
+                                                                            </span></p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="_img">
+                                                                    <img src="https://storage.googleapis.com/aresstorage/upload/dealer/showroom/3102/6372816497
+64905999.jpg" class="img-fluid" />
+                                                                </div>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="text-center mt-4">
+                                                    <a routerLink="/thankspage"
+                                                        class="themeBtn text-uppercase w-100">GET
+                                                        Estimates and
+                                                        QUOTES</a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="__controls w-100">
+                                        <div class="d-flex justify-content-between">
+                                            <a data-toggle="pill" href="#pills-fourth" class="wizardNav decoration-underline text-uppercase
+text-secondary ">
+                                                <svg class="mr-2" width="36" height="36" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="18" cy="18" r="17.5" fill="#fff" stroke="#6C6C6C" />
+                                                    <path d="M17.646 17.646a.5.5 0 0 0 0 .708l3.182 3.181a.5.5
+0 1 0 .707-.707L18.707 18l2.828-2.828a.5.5 0 1 0-.707-.708l-3.182 3.182ZM18
+18.5h18v-1H18v1Z" fill="#6C6C6C" />
+                                                </svg>
+
+
+
+                                                Prev
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Right side image and details we have to call api -->
+                <div class="col-xl-6 col-lg-6 col-md-6 order-first order-md-last">
+                    <div class="h-100 py-4 py-md-0 pb-md-5 selected_vehicle">
+                        <div class="h-100 d-flex flex-md-column justify-content-start align-items-start
+align-items-md-end">
+                            <img src="../../../assets/bmw-2-series.png" class="img-fluid mb-4" />
+                            <div class="text-md-right">
+                                <div class="_title">
+                                    <h3 id="car-name" class=" text-dark mb-1">BMW 2 Series Gran
+                                        Coupe</h3>
+                                    <p class=" text-dark">Trim - M2 Competition Coupe</p>
+                                </div>
+                                <div class="__desc text-dark mb-5">
+                                    <div class="_info mb-2">
+                                        <div class="w-50">
+                                            <span>Style</span>
+                                            <span class="pl-5">-</span>
+                                        </div>
+                                        <div class="flex-shrink-0 w-50">
+                                            SUV
+                                        </div>
+                                    </div>
+                                    <div class="_info mb-2">
+                                        <div class="w-50">
+                                            <span>Fuel</span>
+                                            <span class="pl-5">-</span>
+                                        </div>
+                                        <div class="flex-shrink-0 w-50">
+
+
+
+                                            Petrol
+                                        </div>
+                                    </div>
+                                    <div class="_info mb-2">
+                                        <div class="w-50">
+                                            <span>Engine</span>
+                                            <span class="pl-5">-</span>
+                                        </div>
+                                        <div class="flex-shrink-0 w-50">
+                                            2.0 L N47/B47 I4 turbo
+                                        </div>
+                                    </div>
+                                    <div class="_info mb-2">
+                                        <div class="w-50">
+                                            <span>Transmssion</span>
+                                            <span class="pl-5">-</span>
+                                        </div>
+                                        <div class="flex-shrink-0 w-50">
+                                            Automatic
+                                        </div>
+                                    </div>
+                                    <div class="_info mb-2">
+                                        <div class="w-50">
+                                            <span>Drivetrain</span>
+                                            <span class="pl-5">-</span>
+                                        </div>
+                                        <div class="flex-shrink-0 w-50">
+                                            FWD
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mb-0">
+                                    <a routerLink="/" class="wizardNav decoration-underline text-uppercase
+text-secondary ">
+                                        <svg class="mr-2" width="36" height="36" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="18" cy="18" r="17.5" fill="#fff" stroke="#6C6C6C" />
+                                            <path d="M17.646 17.646a.5.5 0 0 0 0 .708l3.182 3.181a.5.5 0 1
+0 .707-.707L18.707 18l2.828-2.828a.5.5 0 1 0-.707-.708l-3.182 3.182ZM18
+18.5h18v-1H18v1Z" fill="#6C6C6C" />
+                                        </svg>
+                                        Edit vehicle
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</ng-template>
+<!--Form page end here -->
